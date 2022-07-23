@@ -1,62 +1,66 @@
 "use strict";
 
-//Let's start by rolling the dice//
+// Selecting elements
+const score0EL = document.querySelector("#score--0");
+const score1EL = document.getElementById("score--1");
+const current0EL = document.getElementById("current--0");
+const current1EL = document.getElementById("current--1");
 
-//1. The number of the dice needs to be random ---> COMPLETED
-//2. For every time that random number is generated, we need to display a dice image representing it ---> COMPLETED
+const diceEL = document.querySelector(".dice");
+const btnNew = document.querySelector(".btn--new");
+const btnRoll = document.querySelector(".btn--roll");
+const btnHold = document.querySelector(".btn--hold");
 
-//We have to make the "roll dice" button roll the dice ----> COMPLETED
-//1.)
+//starting conditions
+score0EL.textContent = 0;
+score1EL.textContent = 0;
+current0EL.textContent = 0;
+current1EL.textContent = 0;
+diceEL.classList.add("hidden");
 
-let currentScore0 = document.getElementById("current--0");
-let overallScore0 = document.getElementById("score--0");
-const player0 = document.querySelector(" player--0");
+const scores = [0, 0];
+let currentScore = 0;
+let activePlayer = 0;
 
-//let dice = Math.trunc(Math.random() * 6) + 1; //
-let diceIMG = document.querySelector(".dice");
-const rollButton = document.querySelector(".btn--roll");
-const holdButton = document.querySelector(".btn--hold");
+//Rolling dice functionality
 
-let currentScore1 = document.getElementById("current--1");
-let overallScore1 = document.getElementById("score--1");
+btnRoll.addEventListener("click", function () {
+  //generating random dice roll
+  let dice = Math.trunc(Math.random() * 6) + 1;
+  console.log(dice);
 
-diceIMG.style.display = "none";
+  //display dice
+  diceEL.src = `dice-${dice}.png`;
+  diceEL.classList.remove("hidden");
 
-rollButton.addEventListener("click", function () {
-  let dice = Math.trunc(Math.random() * 6 + 1);
-  diceIMG.style.display = "block";
-  if (dice === 1) {
-    diceIMG.src = "dice-1.png";
-  } else if (dice === 2) {
-    diceIMG.src = "dice-2.png";
-  } else if (dice === 3) {
-    diceIMG.src = "dice-3.png";
-  } else if (dice === 4) {
-    diceIMG.src = "dice-4.png";
-  } else if (dice === 5) {
-    diceIMG.src = "dice-5.png";
-  } else if (dice === 6) {
-    diceIMG.src = "dice-6.png";
-  }
-  currentScore0.textContent = Number(currentScore0.textContent) + dice;
-  if (dice === 1) {
-    currentScore0.textContent = 0;
-    rollButton.addEventListener("click", function () {
-      currentScore0.textContent = 0;
-      currentScore1.textContent = Number(currentScore1.textContent) + dice;
-    });
+  //check for rolled 1
+  if (dice !== 1) {
+    //add dice to current score
+    currentScore += dice;
+
+    document.getElementById(`current--${activePlayer}`).textContent =
+      currentScore;
+  } else {
+    dice;
+    current0EL.textContent = 0;
+    current1EL.textContent = 0;
+    currentScore = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    document.getElementById(`current--${activePlayer}`).textContent =
+      currentScore;
   }
 });
 
-//We have to keep adding the dice value into "current" value ---> COMPLETE
-
-//We have to make the "HOLD" btn store the value into player's overall score// --- COMPLETED
-//We have to reset the current score each time we click the "HOLD" button// ---> COMPLETED
-//We have to switch to player 2 after "HOLD" btn is pressed// PLAYER 2 ---> SEMI-COMPLETE (NEED TO DEVIDE THE PROBLEM MORE)
-//For every time that random number is generated, we need to display a dice image representing it PLAYER 2
-
-holdButton.addEventListener("click", function () {
-  overallScore0.textContent =
-    Number(overallScore0.textContent) + Number(currentScore0.textContent);
-  currentScore0.textContent = 0;
+btnHold.addEventListener("click", function () {
+  if (activePlayer === 0) {
+    score0EL.textContent = Number(score0EL.textContent) + currentScore;
+    current0EL.textContent = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    currentScore = 0;
+  } else {
+    score1EL.textContent = Number(score1EL.textContent) + currentScore;
+    current1EL.textContent = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    currentScore = 0;
+  }
 });
