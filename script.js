@@ -11,6 +11,9 @@ const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
+const player0EL = document.querySelector(".player--0");
+const player1EL = document.querySelector(".player--1");
+
 //starting conditions
 score0EL.textContent = 0;
 score1EL.textContent = 0;
@@ -41,13 +44,14 @@ btnRoll.addEventListener("click", function () {
     document.getElementById(`current--${activePlayer}`).textContent =
       currentScore;
   } else {
-    dice;
     current0EL.textContent = 0;
     current1EL.textContent = 0;
     currentScore = 0;
     activePlayer = activePlayer === 0 ? 1 : 0;
     document.getElementById(`current--${activePlayer}`).textContent =
       currentScore;
+    player0EL.classList.toggle("player--active");
+    player1EL.classList.toggle("player--active");
   }
 });
 
@@ -57,10 +61,20 @@ btnHold.addEventListener("click", function () {
     current0EL.textContent = 0;
     activePlayer = activePlayer === 0 ? 1 : 0;
     currentScore = 0;
+    player0EL.classList.toggle("player--active");
+    player1EL.classList.toggle("player--active");
   } else {
     score1EL.textContent = Number(score1EL.textContent) + currentScore;
     current1EL.textContent = 0;
     activePlayer = activePlayer === 0 ? 1 : 0;
     currentScore = 0;
+    player0EL.classList.toggle("player--active");
+    player1EL.classList.toggle("player--active");
   }
 });
+
+//Winner of the game//
+
+if (score0EL >= 100) {
+  document.querySelector("player--0").classList.add("player--winner");
+}
