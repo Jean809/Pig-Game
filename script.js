@@ -87,5 +87,3 @@ btnHold.addEventListener("click", function () {
     player1EL.classList.add("player--winner");
   }
 });
-
-//Winner of the game//
