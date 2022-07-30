@@ -27,7 +27,7 @@ let activePlayer = 0;
 
 //Rolling dice functionality
 
-btnRoll.addEventListener("click", function () {
+function btnRollFunction() {
   //generating random dice roll
   let dice = Math.trunc(Math.random() * 6) + 1;
   console.log(dice);
@@ -53,9 +53,9 @@ btnRoll.addEventListener("click", function () {
     player0EL.classList.toggle("player--active");
     player1EL.classList.toggle("player--active");
   }
-});
+}
 
-btnHold.addEventListener("click", function () {
+function btnHoldFunction() {
   if (activePlayer === 0) {
     score0EL.textContent = Number(score0EL.textContent) + currentScore;
     scores[0] = Number(score0EL.textContent);
@@ -86,4 +86,26 @@ btnHold.addEventListener("click", function () {
   ) {
     player1EL.classList.add("player--winner");
   }
-});
+}
+
+function newGame() {
+  current0EL.textContent = 0;
+  score0EL.textContent = 0;
+  current1EL.textContent = 0;
+  score1EL.textContent = 0;
+}
+
+btnNew.addEventListener("click", newGame);
+
+btnRoll.addEventListener("click", btnRollFunction);
+
+btnHold.addEventListener("click", btnHoldFunction);
+
+/*
+if (
+  player0EL.classList.contains(
+    "player--winner" || player1EL.classList.contains("player--winner")
+  )
+) {
+  btnRoll.removeEventListener("click", btnRollFunction);
+} */
