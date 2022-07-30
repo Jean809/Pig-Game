@@ -101,8 +101,7 @@ function newGame() {
   score0EL.textContent = 0;
   current1EL.textContent = 0;
   score1EL.textContent = 0;
-  player0EL.classList.remove("player--winner");
-  player1EL.classList.remove("player--winner");
+  diceEL.classList.add("hidden");
   btnRoll.addEventListener("click", btnRollFunction);
   btnHold.addEventListener("click", btnHoldFunction);
 }
