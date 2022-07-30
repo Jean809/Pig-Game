@@ -86,6 +86,14 @@ function btnHoldFunction() {
   ) {
     player1EL.classList.add("player--winner");
   }
+
+  if (
+    player0EL.classList.contains("player--winner") ||
+    player1EL.classList.contains("player--winner")
+  ) {
+    btnRoll.removeEventListener("click", btnRollFunction);
+    btnHold.removeEventListener("click", btnHoldFunction);
+  }
 }
 
 function newGame() {
@@ -93,19 +101,12 @@ function newGame() {
   score0EL.textContent = 0;
   current1EL.textContent = 0;
   score1EL.textContent = 0;
+  player0EL.classList.remove("player--winner");
+  player1EL.classList.remove("player--winner");
+  btnRoll.addEventListener("click", btnRollFunction);
+  btnHold.addEventListener("click", btnHoldFunction);
 }
 
-btnNew.addEventListener("click", newGame);
-
 btnRoll.addEventListener("click", btnRollFunction);
-
 btnHold.addEventListener("click", btnHoldFunction);
-
-/*
-if (
-  player0EL.classList.contains(
-    "player--winner" || player1EL.classList.contains("player--winner")
-  )
-) {
-  btnRoll.removeEventListener("click", btnRollFunction);
-} */
+btnNew.addEventListener("click", newGame);
