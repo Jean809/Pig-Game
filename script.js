@@ -21,7 +21,7 @@ current0EL.textContent = 0;
 current1EL.textContent = 0;
 diceEL.classList.add("hidden");
 
-const scores = [0, 0];
+const scores = [];
 let currentScore = 0;
 let activePlayer = 0;
 
@@ -58,6 +58,7 @@ btnRoll.addEventListener("click", function () {
 btnHold.addEventListener("click", function () {
   if (activePlayer === 0) {
     score0EL.textContent = Number(score0EL.textContent) + currentScore;
+    scores[0] = Number(score0EL.textContent);
     current0EL.textContent = 0;
     activePlayer = activePlayer === 0 ? 1 : 0;
     currentScore = 0;
@@ -65,16 +66,26 @@ btnHold.addEventListener("click", function () {
     player1EL.classList.toggle("player--active");
   } else {
     score1EL.textContent = Number(score1EL.textContent) + currentScore;
+    scores[1] = Number(score1EL.textContent);
     current1EL.textContent = 0;
     activePlayer = activePlayer === 0 ? 1 : 0;
     currentScore = 0;
     player0EL.classList.toggle("player--active");
     player1EL.classList.toggle("player--active");
   }
+  if (
+    scores[0] >= 10 &&
+    scores[0] > scores[1] &&
+    !player1EL.classList.contains("player--winner")
+  ) {
+    player0EL.classList.add("player--winner");
+  } else if (
+    scores[1] >= 10 &&
+    scores[1] > scores[0] &&
+    !player0EL.classList.contains("player--winner")
+  ) {
+    player1EL.classList.add("player--winner");
+  }
 });
 
 //Winner of the game//
-
-if (score0EL >= 100) {
-  document.querySelector("player--0").classList.add("player--winner");
-}
