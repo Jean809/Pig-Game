@@ -74,13 +74,13 @@ function btnHoldFunction() {
     player1EL.classList.toggle("player--active");
   }
   if (
-    scores[0] >= 10 &&
+    scores[0] >= 100 &&
     scores[0] > scores[1] &&
     !player1EL.classList.contains("player--winner")
   ) {
     player0EL.classList.add("player--winner");
   } else if (
-    scores[1] >= 10 &&
+    scores[1] >= 100 &&
     scores[1] > scores[0] &&
     !player0EL.classList.contains("player--winner")
   ) {
@@ -97,11 +97,15 @@ function btnHoldFunction() {
 }
 
 function newGame() {
+  scores[0] = 0;
+  scores[1] = 0;
   current0EL.textContent = 0;
   score0EL.textContent = 0;
   current1EL.textContent = 0;
   score1EL.textContent = 0;
   diceEL.classList.add("hidden");
+  player0EL.classList.remove("player--winner");
+  player1EL.classList.remove("player--winner");
   btnRoll.addEventListener("click", btnRollFunction);
   btnHold.addEventListener("click", btnHoldFunction);
 }
